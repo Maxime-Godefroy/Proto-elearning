@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "symfony/maker-bundle": "^1.48"
+    },
+    "require": {
+        "doctrine/orm": "^2.15"
+    }
+}
