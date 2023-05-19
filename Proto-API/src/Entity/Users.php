@@ -14,9 +14,6 @@ class Users
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_user = null;
-
     #[ORM\Column(length: 255)]
     private ?string $name_user = null;
 
@@ -38,18 +35,6 @@ class Users
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdUser(): ?int
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(int $id_user): self
-    {
-        $this->id_user = $id_user;
-
-        return $this;
     }
 
     public function getNameUser(): ?string

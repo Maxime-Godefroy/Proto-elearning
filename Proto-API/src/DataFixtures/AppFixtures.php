@@ -13,9 +13,8 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        for ($i=0; $i < 10; $i++) {
+        for ($i=1; $i <= 10; $i++) {
             $user = new Users();
-            $user->setIdUser($i);
             $user->setNameUser("User ".$i);
             $user->setLoginUser("user".$i);
             $user->setPassUser("user".$i);
