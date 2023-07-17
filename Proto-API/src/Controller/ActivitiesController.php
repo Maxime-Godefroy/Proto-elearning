@@ -13,18 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivitiesController extends AbstractController
 {
     #[Route('/activities', name: 'app_activities')]
-    public function getAllUsers(ActivitiesRepository $usersRepository, SerializerInterface $serializer): JsonResponse
+    public function getAllActivities(ActivitiesRepository $activitiesRepository, SerializerInterface $serializer): JsonResponse
     {
-        $usersList = $usersRepository->findAll();
-        $jsonUsersList = $serializer->serialize($usersList, 'json');
+        $activitiesList = $activitiesRepository->findAll();
+        $jsonActivitiesList = $serializer->serialize($activitiesList, 'json');
         
-        return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+        return new JsonResponse($jsonActivitiesList, Response::HTTP_OK, [], true);
     }
 
     #[Route('/activities/{id}', name: 'detail_activity', methods: ['GET'])]
-    public function getDetailUser(Activities $user, SerializerInterface $serializer)
+    public function getDetailActivity(Activities $activity, SerializerInterface $serializer)
     {
-        $jsonUser = $serializer->serialize($user, 'json');
-        return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
+        $jsonActivity = $serializer->serialize($activity, 'json');
+        return new JsonResponse($jsonActivity, Response::HTTP_OK, [], true);
     }
 }
