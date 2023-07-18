@@ -15,96 +15,127 @@ class Users
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name_user = null;
+    private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $login_user = null;
+    private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pass_user = null;
+    private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mail_user = null;
+    private ?string $email = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $last_connexion = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $color = null;
 
     #[ORM\Column]
-    private ?int $type_compte = null;
+    private ?int $type = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date_creation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNameUser(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name_user;
+        return $this->username;
     }
 
-    public function setNameUser(string $name_user): self
+    public function setUsername(string $username): static
     {
-        $this->name_user = $name_user;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getLoginUser(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->login_user;
+        return $this->firstname;
     }
 
-    public function setLoginUser(string $login_user): self
+    public function setFirstname(string $firstname): static
     {
-        $this->login_user = $login_user;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getPassUser(): ?string
+    public function getLastname(): ?string
     {
-        return $this->pass_user;
+        return $this->lastname;
     }
 
-    public function setPassUser(string $pass_user): self
+    public function setLastname(string $lastname): static
     {
-        $this->pass_user = $pass_user;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getMailUser(): ?string
+    public function getEmail(): ?string
     {
-        return $this->mail_user;
+        return $this->email;
     }
 
-    public function setMailUser(string $mail_user): self
+    public function setEmail(string $email): static
     {
-        $this->mail_user = $mail_user;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getLastConnexion(): ?\DateTimeInterface
+    public function getColor(): ?string
     {
-        return $this->last_connexion;
+        return $this->color;
     }
 
-    public function setLastConnexion(\DateTimeInterface $last_connexion): self
+    public function setColor(string $color): static
     {
-        $this->last_connexion = $last_connexion;
+        $this->color = $color;
 
         return $this;
     }
 
-    public function getTypeCompte(): ?int
+    public function getType(): ?int
     {
-        return $this->type_compte;
+        return $this->type;
     }
 
-    public function setTypeCompte(int $type_compte): self
+    public function setType(int $type): static
     {
-        $this->type_compte = $type_compte;
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $date_creation): static
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }
