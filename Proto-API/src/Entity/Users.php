@@ -30,8 +30,8 @@ class Users
     #[ORM\Column(length: 5)]
     private ?string $color = null;
 
-    #[ORM\Column]
-    private ?int $type = null;
+    #[ORM\Column(length: 60)]
+    private ?string $roles = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_creation = null;
@@ -104,14 +104,14 @@ class Users
         return $this;
     }
 
-    public function getType(): ?int
+    public function getRoles(): ?string
     {
-        return $this->type;
+        return $this->roles;
     }
 
-    public function setType(int $type): static
+    public function setRoles(string $roles): static
     {
-        $this->type = $type;
+        $this->roles = $roles;
 
         return $this;
     }
