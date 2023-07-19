@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     #[Route('/message', name: 'app_message')]
-    public function getAllUsers(MessageRepository $usersRepository, SerializerInterface $serializer): JsonResponse
+    public function getAllMessage(MessageRepository $messageRepository, SerializerInterface $serializer): JsonResponse
     {
-        $messageList = $usersRepository->findAll();
+        $messageList = $messageRepository->findAll();
         $jsonMessageList = $serializer->serialize($messageList, 'json');
         
         return new JsonResponse($jsonMessageList, Response::HTTP_OK, [], true);

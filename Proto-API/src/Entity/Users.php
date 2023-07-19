@@ -27,7 +27,7 @@ class Users
     private ?string $email = null;
 
     
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 5)]
     private ?string $color = null;
 
     #[ORM\Column]
