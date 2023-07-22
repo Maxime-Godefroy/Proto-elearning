@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
 
         for ($i=1; $i <= 10; $i++) {
             $user = new Users();
-            $user->setUsername("User ".$i);
+            $user->setUsername("user".$i);
             $user->setFirstname("User");
             $user->setLastname($i);
             $user->setEmail("user".$i."@test.test");

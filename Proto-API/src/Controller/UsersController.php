@@ -62,22 +62,69 @@ class UsersController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
-
-    #[Route('/users', name: "createUser", methods: ['POST'])]
-    public function createBook(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator): JsonResponse 
+    
+    
+    #[Route('/users/{id}', name: 'createUser', methods: ['POST'])]
+    public function createUser(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $jsonData = $request->getContent();
+
+        $data = json_decode($jsonData, true);
+
+        if (!isset($data['username']) || !isset($data['firstname']) || !isset($data['lastname']) || !isset($data['email']) || !isset($data['color']) || !isset($data['roles']) || !isset($data['password'])) {
+            return new JsonResponse(['message' => 'Toutes les informations requises doivent être fournies.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = new Users();
+        $user->setUsername($data['username']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setEmail($data['email']);
+        $user->setColor($data['color']);
+        $user->setRoles($data['roles']);
+        $user->setPassword($data['password']);
+        $user->setDateCreation(new \DateTime());
+
         try {
-            $user = $serializer->deserialize($request->getContent(), Users::class, 'json');
-            $em->persist($user);
-            $em->flush();
-
-            $jsonUser = $serializer->serialize($user, 'json', ['groups' => 'getUsers']);
-            
-            $location = $urlGenerator->generate('detailUser', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
+            $entityManager->persist($user);
+            $entityManager->flush();
         } catch (\Exception $e) {
             return new JsonResponse(['message' => 'Une erreur est survenue lors de la création de l\'utilisateur.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
+        return new JsonResponse(['message' => 'L\'utilisateur a été créé avec succès.'], Response::HTTP_CREATED);
     }
+
+    #[Route('/users/{id}', name: 'updateUser', methods: ['PUT'])]
+    public function updateUser(Users $user, Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        if (!$user) {
+            return new JsonResponse(['message' => 'Utilisateur non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jsonData = $request->getContent();
+
+        $data = json_decode($jsonData, true);
+
+        if (!isset($data['username']) || !isset($data['firstname']) || !isset($data['lastname']) || !isset($data['email']) || !isset($data['color']) || !isset($data['roles']) || !isset($data['password'])) {
+            return new JsonResponse(['message' => 'Toutes les informations requises doivent être fournies.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user->setUsername($data['username']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setEmail($data['email']);
+        $user->setColor($data['color']);
+        $user->setRoles($data['roles']);
+        $user->setPassword($data['password']);
+
+        try {
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => 'Une erreur est survenue lors de la mise à jour de l\'utilisateur.'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return new JsonResponse(['message' => 'L\'utilisateur a été mis à jour avec succès.'], Response::HTTP_OK);
+    }
+
 }
