@@ -33,24 +33,24 @@ class Message
         return $this->id;
     }
 
-    public function getFromUser(): ?users
+    public function getFromUser(): ?Users
     {
         return $this->from_user;
     }
 
-    public function setFromUser(users $from_user): static
+    public function setFromUser(Users $from_user): static
     {
         $this->from_user = $from_user;
 
         return $this;
     }
 
-    public function getToUser(): ?users
+    public function getToUser(): ?Users
     {
         return $this->to_user;
     }
 
-    public function setToUser(users $to_user): static
+    public function setToUser(Users $to_user): static
     {
         $this->to_user = $to_user;
 

@@ -15,9 +15,9 @@ class Note
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?float $value = null;
+    private ?int $value = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $validate = null;
     
     #[ORM\Column]
@@ -39,12 +39,12 @@ class Note
         return $this->id;
     }
 
-    public function getValue(): ?float
+    public function getValue(): ?int
     {
         return $this->value;
     }
 
-    public function setValue(float $value): static
+    public function setValue(int $value): static
     {
         $this->value = $value;
 

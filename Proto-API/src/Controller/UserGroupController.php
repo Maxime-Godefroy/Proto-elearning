@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\UserGroup;
+use App\Entity\Users;
+use App\Entity\Group;
 use App\Repository\UserGroupRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserGroupController extends AbstractController
 {
@@ -58,5 +61,75 @@ class UserGroupController extends AbstractController
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/user_group/{id}', name: 'createUserGroup', methods: ['POST'])]
+    public function createUserGroup(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $jsonData = $request->getContent();
+        $data = json_decode($jsonData, true);
+
+        if (!isset($data['id_user']) || !isset($data['id_group'])) {
+            return new JsonResponse(['message' => 'Toutes les informations requises doivent être fournies.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = $entityManager->getReference(Users::class, $data['id_user']);
+        if (!$user) {
+            return new JsonResponse(['message' => 'Utilisateur introuvable.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $group = $entityManager->getReference(Group::class, $data['id_group']);
+        if (!$group) {
+            return new JsonResponse(['message' => 'Groupe introuvable.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $userGroup = new UserGroup();
+        $userGroup->setIdUser($user);
+        $userGroup->setIdGroup($group);
+
+        try {
+            $entityManager->persist($userGroup);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => 'Une erreur est survenue lors de l\'ajout de l\'utilisateur au groupe.'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return new JsonResponse(['message' => 'L\'utilisateur a été ajouté au groupe avec succès.'], Response::HTTP_CREATED);
+    }
+
+    #[Route('/user_group/{id}', name: 'updateUserGroup', methods: ['PUT'])]
+    public function updateUserGroup(UserGroup $userGroup, Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        if (!$userGroup) {
+            return new JsonResponse(['message' => 'Relation utilisateur-groupe non trouvée.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $jsonData = $request->getContent();
+        $data = json_decode($jsonData, true);
+
+        if (!isset($data['id_user']) || !isset($data['id_group'])) {
+            return new JsonResponse(['message' => 'Toutes les informations requises doivent être fournies.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = $entityManager->getReference(Users::class, $data['id_user']);
+        if (!$user) {
+            return new JsonResponse(['message' => 'Utilisateur introuvable.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $group = $entityManager->getReference(Group::class, $data['id_group']);
+        if (!$group) {
+            return new JsonResponse(['message' => 'Groupe introuvable.'], Response::HTTP_NOT_FOUND);
+        }
+
+        $userGroup->setIdUser($user);
+        $userGroup->setIdGroup($group);
+
+        try {
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => 'Une erreur est survenue lors de la mise à jour de la relation utilisateur-groupe.'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return new JsonResponse(['message' => 'La relation utilisateur-groupe a été mise à jour avec succès.'], Response::HTTP_OK);
     }
 }

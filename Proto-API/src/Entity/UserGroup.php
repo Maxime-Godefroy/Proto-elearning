@@ -26,12 +26,12 @@ class UserGroup
         return $this->id;
     }
 
-    public function getIdUser(): ?users
+    public function getIdUser(): ?Users
     {
         return $this->id_user;
     }
 
-    public function setIdUser(?users $id_user): static
+    public function setIdUser(?Users $id_user): static
     {
         $this->id_user = $id_user;
 
