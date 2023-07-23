@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CoursePartController extends AbstractController
 {
-    #[Route('/course_part', name: 'app_course_part')]
+    #[Route('/api/course_part', name: 'app_course_part')]
     public function getAllCoursePart(CoursePartRepository $course_partRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -28,7 +28,7 @@ class CoursePartController extends AbstractController
         }
     }
 
-    #[Route('/course_part/{id}', name: 'detailCoursePart', methods: ['GET'])]
+    #[Route('/api/course_part/{id}', name: 'detailCoursePart', methods: ['GET'])]
     public function getDetailCoursePart(CoursePart $course_part, SerializerInterface $serializer)
     {
         try {
@@ -40,7 +40,7 @@ class CoursePartController extends AbstractController
     }
 
     
-    #[Route('/course_part/{id}', name: 'deleteCoursePart', methods: ['DELETE'])]
+    #[Route('/api/course_part/{id}', name: 'deleteCoursePart', methods: ['DELETE'])]
     public function deleteMessage(CoursePart $course_part, EntityManagerInterface $em): JsonResponse 
     {
         if (!$course_part) {
@@ -57,7 +57,7 @@ class CoursePartController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/course_part/{id}', name: 'createCoursePart', methods: ['POST'])]
+    #[Route('/api/course_part/{id}', name: 'createCoursePart', methods: ['POST'])]
     public function createCoursePart(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -87,7 +87,7 @@ class CoursePartController extends AbstractController
         return new JsonResponse(['message' => 'La partie de cours a été créée avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/course_part/{id}', name: 'updateCoursePart', methods: ['PUT'])]
+    #[Route('/api/course_part/{id}', name: 'updateCoursePart', methods: ['PUT'])]
     public function updateCoursePart(CoursePart $coursePart, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$coursePart) {

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserGroupController extends AbstractController
 {
-    #[Route('/user_group', name: 'app_user_group')]
+    #[Route('/api/user_group', name: 'app_user_group')]
     public function getAllUserGroup(UserGroupRepository $user_groupRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -32,7 +32,7 @@ class UserGroupController extends AbstractController
         }
     }
 
-    #[Route('/user_group/{id}', name: 'detailUserGroup', methods: ['GET'])]
+    #[Route('/api/user_group/{id}', name: 'detailUserGroup', methods: ['GET'])]
     public function getDetailUserGroup(UserGroup $user_group, SerializerInterface $serializer)
     {
         try {
@@ -46,7 +46,7 @@ class UserGroupController extends AbstractController
         }
     }
 
-    #[Route('/user_group/{id}', name: 'deleteUserGroup', methods: ['DELETE'])]
+    #[Route('/api/user_group/{id}', name: 'deleteUserGroup', methods: ['DELETE'])]
     public function deleteUserGroup(UserGroup $user_group, EntityManagerInterface $em): JsonResponse 
     {
         if (!$user_group) {
@@ -63,7 +63,7 @@ class UserGroupController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/user_group/{id}', name: 'createUserGroup', methods: ['POST'])]
+    #[Route('/api/user_group/{id}', name: 'createUserGroup', methods: ['POST'])]
     public function createUserGroup(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -97,7 +97,7 @@ class UserGroupController extends AbstractController
         return new JsonResponse(['message' => 'L\'utilisateur a été ajouté au groupe avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/user_group/{id}', name: 'updateUserGroup', methods: ['PUT'])]
+    #[Route('/api/user_group/{id}', name: 'updateUserGroup', methods: ['PUT'])]
     public function updateUserGroup(UserGroup $userGroup, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$userGroup) {

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GroupController extends AbstractController
 {
-    #[Route('/groupes', name: 'app_groupes')]
+    #[Route('/api/groupes', name: 'app_groupes')]
     public function getAllGroupes(GroupRepository $groupRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -27,7 +27,7 @@ class GroupController extends AbstractController
         }
     }
 
-    #[Route('/groupes/{id}', name: 'detailGroup', methods: ['GET'])]
+    #[Route('/api/groupes/{id}', name: 'detailGroup', methods: ['GET'])]
     public function getDetailGroupe(Group $groupe = null, SerializerInterface $serializer)
     {
         if (!$groupe) {
@@ -42,7 +42,7 @@ class GroupController extends AbstractController
         }
     }
 
-    #[Route('/groupes/{id}', name: 'deleteGroup', methods: ['DELETE'])]
+    #[Route('/api/groupes/{id}', name: 'deleteGroup', methods: ['DELETE'])]
     public function deleteMessage(Group $groupes, EntityManagerInterface $em): JsonResponse 
     {
         if (!$groupes) {
@@ -59,7 +59,7 @@ class GroupController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/groupes/{id}', name: 'createGroup', methods: ['POST'])]
+    #[Route('/api/groupes/{id}', name: 'createGroup', methods: ['POST'])]
     public function createGroup(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -90,7 +90,7 @@ class GroupController extends AbstractController
         return new JsonResponse(['message' => 'Le groupe a été créé avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/groupes/{id}', name: 'updateGroup', methods: ['PUT'])]
+    #[Route('/api/groupes/{id}', name: 'updateGroup', methods: ['PUT'])]
     public function updateGroup(Group $group, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$group) {

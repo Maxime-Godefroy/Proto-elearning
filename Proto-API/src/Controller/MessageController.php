@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MessageController extends AbstractController
 {
-    #[Route('/message', name: 'app_message')]
+    #[Route('/api/message', name: 'app_message')]
     public function getAllMessage(MessageRepository $messageRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -28,7 +28,7 @@ class MessageController extends AbstractController
         }
     }
 
-    #[Route('/message/{id}', name: 'detailMessage', methods: ['GET'])]
+    #[Route('/api/message/{id}', name: 'detailMessage', methods: ['GET'])]
     public function getDetailMessage(Message $message, SerializerInterface $serializer)
     {
         try {
@@ -39,7 +39,7 @@ class MessageController extends AbstractController
         }
     }
     
-    #[Route('/message/{id}', name: 'deleteMessage', methods: ['DELETE'])]
+    #[Route('/api/message/{id}', name: 'deleteMessage', methods: ['DELETE'])]
     public function deleteMessage(Message $message, EntityManagerInterface $em): JsonResponse 
     {
         if (!$message) {
@@ -57,7 +57,7 @@ class MessageController extends AbstractController
     }
 
     
-    #[Route('/message/{id}', name: 'createMessage', methods: ['POST'])]
+    #[Route('/api/message/{id}', name: 'createMessage', methods: ['POST'])]
     public function createMessage(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -90,7 +90,7 @@ class MessageController extends AbstractController
         return new JsonResponse(['message' => 'Le message a été créé avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/message/{id}', name: 'updateMessage', methods: ['PUT'])]
+    #[Route('/api/message/{id}', name: 'updateMessage', methods: ['PUT'])]
     public function updateMessage(Message $message, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$message) {

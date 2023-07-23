@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NoteController extends AbstractController
 {
-    #[Route('/note', name: 'app_note')]
+    #[Route('/api/note', name: 'app_note')]
     public function getAllNote(NoteRepository $noteRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -29,7 +29,7 @@ class NoteController extends AbstractController
         }
     }
 
-    #[Route('/note/{id}', name: 'detailNote', methods: ['GET'])]
+    #[Route('/api/note/{id}', name: 'detailNote', methods: ['GET'])]
     public function getDetailGroup(Note $note, SerializerInterface $serializer)
     {
         try {
@@ -40,7 +40,7 @@ class NoteController extends AbstractController
         }
     }
 
-    #[Route('/note/{id}', name: 'deleteNote', methods: ['DELETE'])]
+    #[Route('/api/note/{id}', name: 'deleteNote', methods: ['DELETE'])]
     public function deleteNote(Note $note, EntityManagerInterface $em): JsonResponse 
     {
         if (!$note) {
@@ -57,7 +57,7 @@ class NoteController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/note/{id}', name: 'app_note', methods: ['POST'])]
+    #[Route('/api/note/{id}', name: 'app_note', methods: ['POST'])]
     public function createNote(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -97,7 +97,7 @@ class NoteController extends AbstractController
         return new JsonResponse(['message' => 'La note a été créée avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/note/{id}', name: 'updateNote', methods: ['PUT'])]
+    #[Route('/api/note/{id}', name: 'updateNote', methods: ['PUT'])]
     public function updateNote(Note $note, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$note) {

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-    #[Route('/users', name: 'app_users')]
+    #[Route('/api/users', name: 'app_users')]
     public function getAllUsers(UsersRepository $usersRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -31,7 +31,7 @@ class UsersController extends AbstractController
         }
     }
 
-    #[Route('/users/{id}', name: 'detailUser', methods: ['GET'])]
+    #[Route('/api/users/{id}', name: 'detailUser', methods: ['GET'])]
     public function getDetailUser(Users $user = null, SerializerInterface $serializer)
     {
         if (!$user) {
@@ -46,7 +46,7 @@ class UsersController extends AbstractController
         }
     }
 
-    #[Route('/users/{id}', name: 'deleteUser', methods: ['DELETE'])]
+    #[Route('/api/users/{id}', name: 'deleteUser', methods: ['DELETE'])]
     public function deleteUser(Users $user, EntityManagerInterface $em): JsonResponse 
     {
         if (!$user) {
@@ -64,7 +64,7 @@ class UsersController extends AbstractController
     }
     
     
-    #[Route('/users/{id}', name: 'createUser', methods: ['POST'])]
+    #[Route('/api/users/{id}', name: 'createUser', methods: ['POST'])]
     public function createUser(Request $request, EntityManagerInterface $entityManager): Response
     {
         $jsonData = $request->getContent();
@@ -95,7 +95,7 @@ class UsersController extends AbstractController
         return new JsonResponse(['message' => 'L\'utilisateur a été créé avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/users/{id}', name: 'updateUser', methods: ['PUT'])]
+    #[Route('/api/users/{id}', name: 'updateUser', methods: ['PUT'])]
     public function updateUser(Users $user, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$user) {

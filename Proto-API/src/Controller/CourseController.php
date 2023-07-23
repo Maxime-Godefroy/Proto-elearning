@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CourseController extends AbstractController
 {
-    #[Route('/course', name: 'app_course')]
+    #[Route('/api/course', name: 'app_course')]
     public function getAllCourse(CourseRepository $courseRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -29,7 +29,7 @@ class CourseController extends AbstractController
         }
     }
 
-    #[Route('/course/{id}', name: 'detailCourse', methods: ['GET'])]
+    #[Route('/api/course/{id}', name: 'detailCourse', methods: ['GET'])]
     public function getDetailCourse(Course $course = null, SerializerInterface $serializer)
     {
         if (!$course) {
@@ -44,7 +44,7 @@ class CourseController extends AbstractController
         }
     }
 
-    #[Route('/course/{id}', name: 'deleteCourse', methods: ['DELETE'])]
+    #[Route('/api/course/{id}', name: 'deleteCourse', methods: ['DELETE'])]
     public function deleteCourse(Course $course, EntityManagerInterface $em): JsonResponse 
     {
         if (!$course) {
@@ -61,7 +61,7 @@ class CourseController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/course/{id}', name: 'createCourse', methods: ['POST'])]
+    #[Route('/api/course/{id}', name: 'createCourse', methods: ['POST'])]
     public function createCourse(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();
@@ -97,7 +97,7 @@ class CourseController extends AbstractController
         return new JsonResponse(['message' => 'Le cours a été créé avec succès.'], Response::HTTP_CREATED);
     }
 
-    #[Route('/course/{id}', name: 'updateCourse', methods: ['PUT'])]
+    #[Route('/api/course/{id}', name: 'updateCourse', methods: ['PUT'])]
     public function updateCourse(Course $course, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$course) {
