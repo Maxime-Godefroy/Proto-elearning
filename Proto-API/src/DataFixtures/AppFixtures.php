@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
             $user->setLastname($i);
             $user->setEmail("user".$i."@test.test");
             $user->setColor("FFFFF");
-            $user->setRoles("Role".$i);
+            $user->setRoles(["ROLE_USER"]);
             $user->setDateCreation(new \DateTime());
             $user->setPassword('user'.$i);
             $manager->persist($user);
