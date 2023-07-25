@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
             $user->setColor("FFFFF");
             $user->setRoles(["ROLE_USER"]);
             $user->setDateCreation(new \DateTime());
-            $user->setPassword('user'.$i);
+            $user->setPassword(password_hash('user'.$i, PASSWORD_BCRYPT, ["cost" => 10]));
             $manager->persist($user);
 
             $this->addReference('user_'.$i, $user);

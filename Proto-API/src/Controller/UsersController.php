@@ -82,7 +82,7 @@ class UsersController extends AbstractController
         $user->setEmail($data['email']);
         $user->setColor($data['color']);
         $user->setRoles($data['roles']);
-        $user->setPassword($data['password']);
+        $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 10]));
         $user->setDateCreation(new \DateTime());
 
         try {
@@ -116,7 +116,7 @@ class UsersController extends AbstractController
         $user->setEmail($data['email']);
         $user->setColor($data['color']);
         $user->setRoles($data['roles']);
-        $user->setPassword($data['password']);
+        $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT, ["cost" => 10]));
 
         try {
             $entityManager->flush();
