@@ -11,7 +11,8 @@ services:
     networks:
       - local-network
   myapp:
-    image: symphony_proto
+    container_name: symfony_proto
+    image: symfony_proto
     ports:
       - '80:8000'
     environment:
