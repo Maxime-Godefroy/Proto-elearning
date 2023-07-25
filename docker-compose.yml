@@ -1,4 +1,4 @@
-version: '2'
+version: '3.5'
 
 services:
   mysql_proto:
@@ -7,24 +7,16 @@ services:
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_USER=proto
       - MYSQL_DATABASE=proto_api
     networks:
       - local-network
   myapp:
-    image: docker.io/bitnami/symfony:6.2
+    image: symphony_proto
     ports:
-      - '8000:8000'
+      - '80:8000'
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
-      - SYMFONY_DATABASE_HOST=mysql_proto
-      - SYMFONY_DATABASE_PORT_NUMBER=3306
-      - SYMFONY_DATABASE_USER=proto
-      - SYMFONY_DATABASE_NAME=proto_api
       - SYMFONY_PROJECT_SKELETON=symfony/skeleton
-    volumes:
-      - './Proto-API:/app'
     depends_on:
       - mysql_proto
     networks:
