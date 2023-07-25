@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MessageController extends AbstractController
 {
-    #[Route('/api/message', name: 'app_message')]
+    #[Route('/api/message', name: 'app_message', methods: ['GET'])]
     public function getAllMessage(MessageRepository $messageRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -57,7 +57,7 @@ class MessageController extends AbstractController
     }
 
     
-    #[Route('/api/message/{id}', name: 'createMessage', methods: ['POST'])]
+    #[Route('/api/message', name: 'createMessage', methods: ['POST'])]
     public function createMessage(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();

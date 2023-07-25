@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CourseController extends AbstractController
 {
-    #[Route('/api/course', name: 'app_course')]
+    #[Route('/api/course', name: 'app_course', methods: ['GET'])]
     public function getAllCourse(CourseRepository $courseRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -61,7 +61,7 @@ class CourseController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/api/course/{id}', name: 'createCourse', methods: ['POST'])]
+    #[Route('/api/course', name: 'createCourse', methods: ['POST'])]
     public function createCourse(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();

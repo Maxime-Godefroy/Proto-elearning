@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NoteController extends AbstractController
 {
-    #[Route('/api/note', name: 'app_note')]
+    #[Route('/api/note', name: 'app_note', methods: ['GET'])]
     public function getAllNote(NoteRepository $noteRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -57,7 +57,7 @@ class NoteController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/api/note/{id}', name: 'app_note', methods: ['POST'])]
+    #[Route('/api/note', name: 'app_note', methods: ['POST'])]
     public function createNote(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserGroupController extends AbstractController
 {
-    #[Route('/api/user_group', name: 'app_user_group')]
+    #[Route('/api/user_group', name: 'app_user_group', methods: ['GET'])]
     public function getAllUserGroup(UserGroupRepository $user_groupRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -63,7 +63,7 @@ class UserGroupController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/api/user_group/{id}', name: 'createUserGroup', methods: ['POST'])]
+    #[Route('/api/user_group', name: 'createUserGroup', methods: ['POST'])]
     public function createUserGroup(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $jsonData = $request->getContent();

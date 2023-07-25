@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-    #[Route('/api/users', name: 'app_users')]
+    #[Route('/api/users', name: 'app_users', methods: ['GET'])]
     public function getAllUsers(UsersRepository $usersRepository, SerializerInterface $serializer): JsonResponse
     {
         try {
@@ -64,7 +64,7 @@ class UsersController extends AbstractController
     }
     
     
-    #[Route('/api/users/{id}', name: 'createUser', methods: ['POST'])]
+    #[Route('/api/users', name: 'createUser', methods: ['POST'])]
     public function createUser(Request $request, EntityManagerInterface $entityManager): Response
     {
         $jsonData = $request->getContent();
