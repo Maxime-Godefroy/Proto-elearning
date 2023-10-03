@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  mysql_proto:
+    container_name: mysql_proto
+    image: mysql:8.0
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=proto_api
+    networks:
+      - local-network
+  myapp:
+    container_name: symfony_proto
+    image: symfony_proto
+    ports:
+      - '80:8000'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - SYMFONY_PROJECT_SKELETON=symfony/skeleton
+    depends_on:
+      - mysql_proto
+    networks:
+      - local-network
+  #PHPMyAdmin
+  phpmyadmin:
+    container_name: phpmyadmin_proto
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql_proto
+    networks:
+      - local-network
+networks:
+  local-network:
